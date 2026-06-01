@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { X, Clock, MapPin, Calendar, Users, ExternalLink, ArrowLeft, Play, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react"
 import HamburgerMenu from "./hamburger-menu"
+import TicketSelectorModal from "./ticket-selector-modal"
 
 interface BuyTicketsDetailProps {
   onNavigate: (page: string) => void
@@ -32,6 +33,7 @@ export default function BuyTicketsDetail({ onNavigate }: BuyTicketsDetailProps) 
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0)
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false)
 
   const galleryMedia = [
     { type: "image", src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80", alt: "Weekend event 1" },
@@ -245,7 +247,7 @@ export default function BuyTicketsDetail({ onNavigate }: BuyTicketsDetailProps) 
                     <span className="text-[9px] sm:text-xs md:text-sm tracking-wider">{event.time}</span>
                   </div>
                   <button
-                    onClick={() => onNavigate(event.id)}
+                    onClick={() => setIsTicketModalOpen(true)}
                     className={`px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 text-[9px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.15em] transition-all ${
                       event.buttonStyle === "filled"
                         ? "bg-gradient-to-r from-amber-600 to-amber-500 text-black font-medium hover:from-amber-500 hover:to-amber-400"
@@ -348,7 +350,7 @@ export default function BuyTicketsDetail({ onNavigate }: BuyTicketsDetailProps) 
                 </div>
                 <p className="text-white/40 text-[8px] sm:text-[10px] md:text-xs tracking-wider mb-2 sm:mb-3 md:mb-4">NORMALMENTE $700K - $2M</p>
                 <button
-                  onClick={() => onNavigate("vip-table")}
+                  onClick={() => setIsTicketModalOpen(true)}
                   className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-black font-medium py-2 sm:py-2.5 md:py-3 text-[9px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.15em] hover:from-amber-500 hover:to-amber-400 transition-all"
                 >
                   COMPRAR
@@ -372,7 +374,7 @@ export default function BuyTicketsDetail({ onNavigate }: BuyTicketsDetailProps) 
                 LOS CUPOS SON LIMITADOS.
               </p>
               <button
-                onClick={() => onNavigate("buy-tickets")}
+                onClick={() => setIsTicketModalOpen(true)}
                 className="inline-flex items-center gap-1.5 sm:gap-2 border-2 border-amber-500 text-amber-500 px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 text-[9px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.15em] font-bold hover:bg-amber-500 hover:text-black transition-all"
               >
                 COMPRAR ENTRADAS
@@ -467,6 +469,12 @@ export default function BuyTicketsDetail({ onNavigate }: BuyTicketsDetailProps) 
       >
         <ArrowLeft className="w-6 h-6" />
       </button>
+
+      {/* Ticket Selector Modal */}
+      <TicketSelectorModal
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+      />
     </div>
   )
 }

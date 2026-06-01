@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ChevronDown, ChevronRight, ChevronUp, Menu as MenuIcon } from "lucide-react"
 import HamburgerMenu from "./hamburger-menu"
+import TicketSelectorModal from "./ticket-selector-modal"
 
 interface MenuSectionProps {
   title: string
@@ -98,6 +99,7 @@ interface MenuProps {
 export default function Menu({ onNavigate }: MenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false)
 
   const signatureEvents = [
     { label: "BABADOOK", id: "babadook" },
@@ -223,7 +225,7 @@ export default function Menu({ onNavigate }: MenuProps) {
           title="BUY TICKETS / BOOK VIP"
           subtitle="GET ACCESS"
           backgroundImage="https://f005.backblazeb2.com/file/b21of1firm/background/BThome.png"
-          onClick={() => handleNavigate("buy-tickets")}
+          onClick={() => setIsTicketModalOpen(true)}
         />
 
         {/* CONTACT - Direct navigation */}
@@ -242,7 +244,7 @@ export default function Menu({ onNavigate }: MenuProps) {
         <p className="text-amber-500 text-[10px] sm:text-xs md:text-sm tracking-[0.3em] sm:tracking-[0.4em] mt-1 md:mt-2">#1UNIQUEEXPERIENCE</p>
 
         <button 
-          onClick={() => handleNavigate("buy-tickets")}
+          onClick={() => setIsTicketModalOpen(true)}
           className="mt-4 sm:mt-4 md:mt-8 px-6 sm:px-8 md:px-12 py-2 md:py-3 border border-amber-500 text-amber-500 text-[10px] sm:text-xs md:text-sm tracking-widest hover:bg-amber-500 hover:text-black transition-all duration-300"
         >
           GET ACCESS
@@ -302,6 +304,12 @@ export default function Menu({ onNavigate }: MenuProps) {
           <p className="text-white/30 text-[10px] sm:text-xs tracking-wider text-center">&copy; 2026 1 OF 1 FIRM. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* Ticket Selector Modal */}
+      <TicketSelectorModal
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+      />
     </div>
   )
 }

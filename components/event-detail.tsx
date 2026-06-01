@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Calendar, MapPin, Clock, Play, Menu as MenuIcon, ArrowLeft, ChevronDown, ChevronUp, X, ChevronLeft, ChevronRight } from "lucide-react"
 import HamburgerMenu from "./hamburger-menu"
+import TicketSelectorModal from "./ticket-selector-modal"
 
 interface EventDetailProps {
   onNavigate?: (page: string) => void
@@ -91,6 +92,7 @@ export default function EventDetail({ onNavigate }: EventDetailProps) {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0)
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false)
   
   // Target date: October 30, 2026
   const targetDate = new Date('2026-10-30T00:00:00')
@@ -237,7 +239,7 @@ export default function EventDetail({ onNavigate }: EventDetailProps) {
               <span className="text-lg sm:text-2xl md:text-3xl font-light text-white">$45.000</span>
               <span className="text-white/50 text-[10px] sm:text-xs md:text-sm ml-1 sm:ml-2">COP</span>
             </div>
-            <button className="w-full py-2 sm:py-2.5 md:py-3 border border-white/30 text-white text-[9px] sm:text-[10px] md:text-sm tracking-widest hover:bg-white/10 transition-colors">
+            <button onClick={() => setIsTicketModalOpen(true)} className="w-full py-2 sm:py-2.5 md:py-3 border border-white/30 text-white text-[9px] sm:text-[10px] md:text-sm tracking-widest hover:bg-white/10 transition-colors">
               COMPRAR
             </button>
           </div>
@@ -268,7 +270,7 @@ export default function EventDetail({ onNavigate }: EventDetailProps) {
               <span className="text-white/50 text-[10px] sm:text-xs md:text-sm ml-1 sm:ml-2">COP</span>
             </div>
             <p className="text-white/40 text-[7px] sm:text-[9px] md:text-xs mb-2 sm:mb-3 md:mb-4">NORMALMENTE $700K - $2M</p>
-            <button className="w-full py-2 sm:py-2.5 md:py-3 border border-amber-500 text-amber-500 text-[9px] sm:text-[10px] md:text-sm tracking-widest hover:bg-amber-500 hover:text-black transition-colors">
+            <button onClick={() => setIsTicketModalOpen(true)} className="w-full py-2 sm:py-2.5 md:py-3 border border-amber-500 text-amber-500 text-[9px] sm:text-[10px] md:text-sm tracking-widest hover:bg-amber-500 hover:text-black transition-colors">
               COMPRAR
             </button>
           </div>
@@ -298,7 +300,7 @@ export default function EventDetail({ onNavigate }: EventDetailProps) {
             ASEGURA TU LUGAR
           </h2>
           <p className="text-white/60 text-[10px] sm:text-xs md:text-sm tracking-wider mb-4 sm:mb-6">LOS CUPOS SON LIMITADOS.</p>
-          <button className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 bg-amber-500/20 border border-amber-500 text-amber-500 text-[10px] sm:text-xs md:text-sm tracking-widest hover:bg-amber-500 hover:text-black transition-all duration-300">
+          <button onClick={() => setIsTicketModalOpen(true)} className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 bg-amber-500/20 border border-amber-500 text-amber-500 text-[10px] sm:text-xs md:text-sm tracking-widest hover:bg-amber-500 hover:text-black transition-all duration-300">
             COMPRAR ENTRADAS
             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M12 5l7 7-7 7" />
@@ -428,6 +430,13 @@ export default function EventDetail({ onNavigate }: EventDetailProps) {
           </div>
         </div>
       </footer>
+
+      {/* Ticket Selector Modal */}
+      <TicketSelectorModal
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+        preSelectedEvent="babadook"
+      />
     </div>
   )
 }

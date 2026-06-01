@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { X, Plus, Minus } from "lucide-react"
+import TicketSelectorModal from "./ticket-selector-modal"
 
 function Sparkle() {
   return (
@@ -20,6 +21,7 @@ interface HamburgerMenuProps {
 
 export default function HamburgerMenu({ isOpen, onClose, onNavigate, currentPage }: HamburgerMenuProps) {
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false)
 
   const signatureEvents = ["BABADOOK", "LUNA LLENA", "LA FESTA", "ANIMAL", "CELESTIAL", "CHAMPIONSHIP"]
   const universeItems = ["DRIP", "VISION GALLERY", "CAMP", "MAISON SWIM", "GOLDEN BACKSTAGE"]
@@ -155,7 +157,7 @@ export default function HamburgerMenu({ isOpen, onClose, onNavigate, currentPage
 
             {/* BUY TICKETS */}
             <button
-              onClick={() => handleNavigate("buy-tickets")}
+              onClick={() => setIsTicketModalOpen(true)}
               className="block w-full text-lg md:text-3xl tracking-[0.2em] text-amber-500 font-light italic hover:text-amber-400 transition-colors"
             >
               BUY TICKETS
@@ -208,6 +210,12 @@ export default function HamburgerMenu({ isOpen, onClose, onNavigate, currentPage
           </a>
         </div>
       </div>
+
+      {/* Ticket Selector Modal */}
+      <TicketSelectorModal
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+      />
     </div>
   )
 }
