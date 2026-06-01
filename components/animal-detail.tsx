@@ -209,10 +209,34 @@ export default function AnimalDetail({ onNavigate }: AnimalDetailProps) {
               <span className="text-xl sm:text-2xl font-light text-white">$45.000</span>
               <span className="text-white/60 text-[10px] sm:text-xs ml-1">COP</span>
             </div>
-            <button className="w-full py-2 border border-white/30 text-white text-[10px] sm:text-xs tracking-widest hover:bg-white/10 transition-colors">
+            <button onClick={() => setIsTicketModalOpen(true)} className="w-full py-2 border border-white/30 text-white text-[10px] sm:text-xs tracking-widest hover:bg-white/10 transition-colors">
               COMPRAR
             </button>
           </div>
+
+          {/* VIP */}
+          <div className="border border-amber-500/50 p-2 sm:p-4 text-center relative">
+            <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[7px] sm:text-[8px] tracking-wider px-2 py-0.5">
+              MÁS VENDIDA
+            </div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2 sm:mb-3 border border-amber-500/50 rounded flex items-center justify-center">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 className="text-white font-medium tracking-wider text-xs sm:text-sm mb-1">MESA VIP 10 PERSONAS</h3>
+            <p className="text-white/50 text-[9px] sm:text-[10px] tracking-wider">EXPERIENCIA VIP PARA</p>
+            <p className="text-white/40 text-[7px] sm:text-[8px] tracking-wider mb-2 sm:mb-3">GRUPOS DE 10 PERSONAS</p>
+            <div className="mb-1">
+              <span className="text-xl sm:text-2xl font-light text-amber-500">$500.000</span>
+              <span className="text-amber-500/60 text-[10px] sm:text-xs ml-1">COP</span>
+            </div>
+            <p className="text-white/40 text-[7px] sm:text-[8px] mb-2 sm:mb-3">NORMALMENTE $700K - $2M</p>
+            <button onClick={() => setIsTicketModalOpen(true)} className="w-full py-2 border border-amber-500/50 text-amber-500 text-[10px] sm:text-xs tracking-widest hover:bg-amber-500 hover:text-black transition-colors">
+              COMPRAR
+            </button>
+          </div>
+        </div>
 
           {/* VIP */}
           <div className="border border-amber-500/50 p-2 sm:p-4 text-center relative bg-white/5">
@@ -261,7 +285,7 @@ export default function AnimalDetail({ onNavigate }: AnimalDetailProps) {
           <div className="absolute inset-0 bg-black/20" />
           <div className="relative z-10">
             <p className="text-white text-xs sm:text-sm tracking-widest mb-3 sm:mb-4 italic">LOS CUPOS SON LIMITADOS.</p>
-            <button className="px-6 sm:px-8 py-2.5 sm:py-3 bg-amber-500 text-black text-xs sm:text-sm font-medium tracking-widest hover:bg-amber-400 transition-colors flex items-center gap-2 mx-auto">
+            <button onClick={() => setIsTicketModalOpen(true)} className="px-6 sm:px-8 py-2.5 sm:py-3 bg-amber-500 text-black text-xs sm:text-sm font-medium tracking-widest hover:bg-amber-400 transition-colors flex items-center gap-2 mx-auto">
               COMPRAR ENTRADAS
               <svg className="w-3 h-3 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
@@ -381,6 +405,13 @@ export default function AnimalDetail({ onNavigate }: AnimalDetailProps) {
           </a>
         </div>
       </footer>
+
+      {/* Ticket Selector Modal */}
+      <TicketSelectorModal
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+        preSelectedEvent="animal"
+      />
     </div>
   )
 }
